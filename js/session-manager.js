@@ -1,14 +1,9 @@
-
-
-
-
 // Obtener cookie dado el nombre
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
-
 
 // Redireccionar al Login en caso de que no esté autenticado
 function redirectToLogin(sessionUser) {
@@ -39,63 +34,37 @@ function checkSession() {
 
 checkSession();
 
-function buildUserData(){
-    if (userData == null){
-      userData= {firstname:'',secondname:'',lastname:'',secondlastname:'',userphone:''};
+function buildUserData() {
+    if (userData == null) {
+        userData = { firstname: '', secondname: '', lastname: '', secondlastname: '', userphone: '' };
     }
     return (userData);
-  
-  }
+}
 
-
-//Cerrar sesión 
+// Cerrar sesión 
 document.addEventListener("DOMContentLoaded", function() {
-    // Función para obtener la cookie de sesión
-    function getCookie(name) {
-        let cookieArr = document.cookie.split(";");
-        for(let i = 0; i < cookieArr.length; i++) {
-            let cookiePair = cookieArr[i].split("=");
-            if(name === cookiePair[0].trim()) {
-                return decodeURIComponent(cookiePair[1]);
-            }
-        }
-        return null;
-    }
-
-    // Verificar si el usuario está logeado (cookie de sesión)
     let userName = getCookie('sessionUser');
-    
     if (userName) {
         document.getElementById('user-name').innerHTML = userName;
-    } else {
-        // Si no hay cookie de sesión, redirigir al login desde cualquier página
-        if (window.location.pathname !== "/login.html") {
-            window.location.replace("login.html");
-        }
     }
 
-    // Botón de cerrar sesión
     let logoutButton = document.getElementById('logout');
     if (logoutButton) {
         logoutButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevenir comportamiento por defecto
-            
-            // Borrar la cookie de sesión
+            // Prevenir el comportamiento predeterminado del enlace
+            event.preventDefault();
+
+            // Eliminar la cookie de sesión
             document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            
-            // Reemplazar la entrada actual en el historial con login.html (esto evitará que puedan volver atrás)
-            window.history.replaceState(null, null, "login.html");
-            
-            // Redirigir al login
+
+            // Redirigir a la página de inicio de sesión
             window.location.replace("login.html");
         });
     }
 
-    // Manejo del evento popstate para bloquear volver atrás
+    // Manejo del historial para prevenir la navegación hacia atrás
+    window.history.pushState(null, null, window.location.href);
     window.addEventListener('popstate', function() {
-        // Si la sesión no existe (cookie eliminada), redirigir al login
-        if (!getCookie('sessionUser')) {
-            window.location.replace("login.html");
-        }
+        window.history.pushState(null, null, window.location.href);
     });
 });
