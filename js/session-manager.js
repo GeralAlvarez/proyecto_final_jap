@@ -72,21 +72,21 @@ document.addEventListener("DOMContentLoaded", function() {
             // Borrar la cookie de sesión
             document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             
-            // Reemplazar la entrada actual en el historial con login.html (no permite volver atrás)
-            window.history.replaceState(null, null, "login.html");
-
             // Redirigir al usuario a la página de login
             window.location.replace("login.html");
         });
     }
 
-    // Manejo de evento para evitar volver atrás
-    window.addEventListener('popstate', function() {
-        // Si el usuario intenta retroceder después de cerrar sesión, redirigirlo a la página de login
-        if (!getCookie('sessionUser')) {
-            window.location.replace("login.html");
-        }
-    });
+    // Evitar que el usuario navegue hacia atrás después de cerrar sesión
+    function preventBackNavigation() {
+        window.history.pushState(null, "", window.location.href);
+        window.onpopstate = function() {
+            window.history.pushState(null, "", window.location.href);
+        };
+    }
+
+    // Llamar a la función para evitar el retroceso
+    preventBackNavigation();
 });
 
 
