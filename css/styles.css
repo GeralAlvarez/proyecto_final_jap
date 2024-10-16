@@ -2,7 +2,7 @@
 .card-body,
 .container,
 .site-header {
-  font-family: 'Verdana', serif !important;
+  font-family: "Raleway", serif !important;
 }
 
 .jumbotron .display-4 {
@@ -32,8 +32,8 @@ nav a {
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
+  background-color: #53c0fb;
+  background: url("../img/cover_back.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,12 +73,12 @@ footer {
 }
 
 footer p {
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-header a {
   color: white;
-  transition: ease-in-out color .15s;
+  transition: ease-in-out color 0.15s;
 }
 
 .site-header .dropdown-menu a {
@@ -86,7 +86,7 @@ footer p {
 }
 
 .dropzone {
-  border: 2px dashed #0087F7;
+  border: 2px dashed #0087f7;
   border-radius: 5px;
   background: white;
 }
@@ -187,4 +187,185 @@ a.custom-card:hover {
 
 .checked {
   color: orange;
+}
+
+/* Nombre, descripción, precio */
+.product-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.product-description {
+  color: #555;
+}
+
+.product-price {
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+/* Estilo para la cantidad de vendidos */
+.product-soldCount {
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: 10px;
+  margin-top: 25px;
+  padding: 0.75%;
+}
+
+.page-name {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+/* Estilos de la barra de búsqueda */
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.7rem 2.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.clear-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  cursor: pointer;
+  display: none;
+}
+
+.clear-icon:hover {
+  color: #333;
+}
+
+.align-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  margin-right: 10px;
+}
+
+.checked-star {
+  color: gold;
+}
+
+.not-checked-star {
+  color: lightgray;
+}
+
+.btn-text {
+  font-size: 1rem;
+  border: none;
+  background: none;
+  color: blue;
+  text-decoration: underline;
+}
+
+.star {
+  font-size: 30px;
+  color: gray;
+  cursor: pointer;
+}
+
+.star.selected {
+  color: gold;
+}
+
+/* PRODUCTOS RELACIONADOS */
+.productosrel {
+  font-family: Raleway;
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-related:hover {
+  background-color: rgb(255, 196, 0); 
+  color: black;
+  border-color: rgb(255, 196, 0); 
+}
+
+.card-body-related {
+  align-content: center;
+}
+
+.card-img-top-related {
+  max-width: 70%; /* Asegura que la imagen sea más pequeña */
+  height: auto; /* Mantiene la proporción */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+  border-radius: 30px;
+}
+
+.card-title-related {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn-related, .btn-img-profile, .btn-toggle {
+  text-align: center;
+  color: white;
+  background-color: black;
+  border-radius: 100px;
+  border-color: black;
+  padding: 5px 15px; /* Ajusta el padding del botón */
+}
+
+@media (max-width: 576px) {
+  .carousel-item .col-12 {
+    flex: 0 0 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+    max-width: 100%; /* Asegura que no se recorten */
+  }
+}
+
+/* Controlar layout en pantallas grandes para 2 productos por fila */
+.carousel-item .col-md-6,
+.carousel-item .col-lg-6 {
+  flex: 1 0 45%; /* Ajusta el ancho de las tarjetas en pantallas grandes */
+}
+
+.text-related {
+  font-family: Raleway;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.title-bold {
+  font-weight: bold;
+}
+
+/* Estilos my profile */
+.circle-img-container {
+  aspect-ratio: 1 / 1; /* Mantiene la proporcion entre el ancho y el alto*/
+  border-radius: 50%; /* Redondea el contenedor para que la imagen se vea circular */
+  overflow: hidden;
+}
+
+.circle-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
