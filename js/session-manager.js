@@ -50,14 +50,25 @@ function buildUserData(){
 
 //Cerrar sesión 
 document.addEventListener("DOMContentLoaded", function() {
-    // Obtener el nombre de usuario de la cookie
+    // Función para obtener la cookie de sesión
+    function getCookie(name) {
+        let cookieArr = document.cookie.split(";");
+        for(let i = 0; i < cookieArr.length; i++) {
+            let cookiePair = cookieArr[i].split("=");
+            if(name === cookiePair[0].trim()) {
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+        return null;
+    }
+
+    // Verificar si el usuario está logeado (cookie de sesión)
     let userName = getCookie('sessionUser');
     
-    // Si hay un usuario, mostrar su nombre
     if (userName) {
         document.getElementById('user-name').innerHTML = userName;
     } else {
-        // Si no hay cookie de sesión, redirigir a la página de login
+        // Si no hay cookie de sesión, redirigir al login desde cualquier página
         if (window.location.pathname !== "/login.html") {
             window.location.replace("login.html");
         }
@@ -67,26 +78,24 @@ document.addEventListener("DOMContentLoaded", function() {
     let logoutButton = document.getElementById('logout');
     if (logoutButton) {
         logoutButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-
+            event.preventDefault(); // Prevenir comportamiento por defecto
+            
             // Borrar la cookie de sesión
             document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             
-            // Redirigir al usuario a la página de login
+            // Reemplazar la entrada actual en el historial con login.html (esto evitará que puedan volver atrás)
+            window.history.replaceState(null, null, "login.html");
+            
+            // Redirigir al login
             window.location.replace("login.html");
         });
     }
 
-    // Evitar que el usuario navegue hacia atrás después de cerrar sesión
-    function preventBackNavigation() {
-        window.history.pushState(null, "", window.location.href);
-        window.onpopstate = function() {
-            window.history.pushState(null, "", window.location.href);
-        };
-    }
-
-    // Llamar a la función para evitar el retroceso
-    preventBackNavigation();
+    // Manejo del evento popstate para bloquear volver atrás
+    window.addEventListener('popstate', function() {
+        // Si la sesión no existe (cookie eliminada), redirigir al login
+        if (!getCookie('sessionUser')) {
+            window.location.replace("login.html");
+        }
+    });
 });
-
-
